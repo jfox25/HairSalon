@@ -1,13 +1,50 @@
 using Microsoft.AspNetCore.Mvc;
+using HairSalon.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HairSalon.Controllers
 {
     public class ClientsController : Controller
     {
+      private readonly HairSalonContext _db;
 
+      public ClientsController(HairSalonContext db)
+      {
+        _db = db;
+      }
       public ActionResult Index()
       {
+        List<Client> clients = _db.Clients.ToList();
+        ViewBag.StylistCount = _db.Stylists.ToList().Count;
+        return View(clients);
+      }
+      public ActionResult Create(int id)
+      {
+        ViewBag.StylistId = new SelectList(_db.Stylists, "StylistId", "Name");
+        ViewBag.fromStylistId = id;
         return View();
+      }
+      [HttpPost]
+      public ActionResult Create(Client client, bool returnToStylist = false)
+      {
+        _db.Clients.Add(client);
+        _db.SaveChanges();
+        if(returnToStylist == true)
+        {
+          return Redirect($"/stylists/{client.StylistId}");
+        }
+        return RedirectToAction("Index");
+      }
+       public ActionResult Details(int id)
+      {
+        Client client = _db.Clients.FirstOrDefault(client => client.ClientId == id);
+        Stylist stylist = _db.Stylists.FirstOrDefault(stylist => stylist.StylistId == client.StylistId);
+        ViewBag.StylistName = stylist.Name;
+        return View(client);
       }
 
     }
