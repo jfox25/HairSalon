@@ -21,8 +21,7 @@
     <li>@Html.ActionLink($"{client.Name}", "Details", "Clients" , new { id = client.ClientId })</li>
   }
 </ul>
-@* <p>@Html.ActionLink("Edit Item", "Edit", new { id = Model.ItemId })</p>
-<p>@Html.ActionLink("Delete Item", "Delete", new { id = Model.ItemId })</p> *@
+<p>@Html.ActionLink("Add a client", "Create", "Clients", new { id = Model.StylistId })</p>
 <form class="delete-form" action="/stylists/delete/@Model.StylistId" method="post">
   <button class="delete-button" type="submit" name="button">X</button>
 </form>
