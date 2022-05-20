@@ -42,7 +42,7 @@ namespace HairSalon.Controllers
             notBookedAppointments.Add(appointment);
           }
         }
-        ViewBag.ClientId = new SelectList(_db.Clients, "ClientId", "Name");
+        ViewBag.ClientId = new SelectList(stylist.Clients, "ClientId", "Name");
         ViewBag.AppointmentId = new SelectList(notBookedAppointments, "AppointmentId", "Time");
         ViewBag.StylistName = stylist.Name;
         return View();
@@ -51,6 +51,9 @@ namespace HairSalon.Controllers
       public ActionResult Create(int clientId, int appointmentId) 
       {
         Appointment appointment = _db.Appointments.FirstOrDefault(appointment => appointment.AppointmentId == appointmentId);
+        Stylist stylist = _db.Stylists.FirstOrDefault(stylist => stylist.StylistId == appointment.StylistId);
+        stylist.UpdateTotalRevenue();
+         _db.Entry(stylist).State = EntityState.Modified;
         appointment.IsBooked = true;  
         appointment.ClientId = clientId;
         _db.Entry(appointment).State = EntityState.Modified;
@@ -71,6 +74,9 @@ namespace HairSalon.Controllers
       public ActionResult Delete(int id) 
       {
         Appointment appointment = _db.Appointments.FirstOrDefault(appointment => appointment.AppointmentId == id);
+        Stylist stylist = _db.Stylists.FirstOrDefault(stylist => stylist.StylistId == appointment.StylistId);
+        stylist.UpdateLostTotalRevenue();
+         _db.Entry(stylist).State = EntityState.Modified;
         if(appointment.IsBooked)
         {
           appointment.IsBooked = false;

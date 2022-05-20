@@ -6,10 +6,12 @@
 @if(ViewBag.StylistCount == 0 && ViewBag.ClientsCount == 0)
 {
   <p class="info">There are no Stylists or Clients yet, Please add one</p>
-  <div class="button-group">
-    <p class="button margin-right">@Html.ActionLink("Add a Stylist", "Create", "Stylists")</p>
-    <p class="button">@Html.ActionLink("Add a Client", "Create", "Clients")</p>  
-  </div>
+  <p class="button margin-right">@Html.ActionLink("Add a Stylist", "Create", "Stylists")</p>
+}
+else if(ViewBag.ClientsCount == 0)
+{
+  <p class="info">There are no Clients yet, Please add one</p>
+  <p class="button margin-right">@Html.ActionLink("Add a Client", "Create", "Clients")</p>
 }
 else
 {

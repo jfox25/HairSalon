@@ -23,6 +23,10 @@ namespace HairSalon.Models
         {
           TotalRevenue += 60;
         }
+        public void UpdateLostTotalRevenue()
+        {
+          TotalRevenue -= 60;
+        }
 
         public void GenerateAppoinments()
         {

@@ -39,13 +39,14 @@ else
     @foreach (Appointment appointment in Model.Appointments)
     {
       <ul class="horizontal-list">
-        <li>@appointment.Time</li>
         @if(appointment.IsBooked)
         {
+          <li class="link">@Html.ActionLink($"{appointment.Time}", "Details","Appointments", new { id = appointment.AppointmentId })</li>
           <li class="red">Booked</li>
         }
         else 
         {
+          <li>@appointment.Time</li>
           <li class="green">Avalable</li>
         }
       </ul>

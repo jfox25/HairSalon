@@ -4,16 +4,22 @@
 
 @model HairSalon.Models.Stylist
 
-<h4>Edit this Stylist: @Html.DisplayFor(model => model.Name)</h4>
+<h1>Edit this Stylist: <span class="accent-color">@Html.DisplayFor(model => model.Name)</span></h1>
 
 @using (Html.BeginForm())
 {
     @Html.HiddenFor(model => model.StylistId)
-
-    @Html.LabelFor(model => model.Name)
-    @Html.EditorFor(model => model.Name)
-    @Html.LabelFor(model => model.YearsOfExperiance)
-    @Html.EditorFor(model => model.YearsOfExperiance, new { type="number", min="0", required="true"})
-    <input type="submit" value="Save" />
+    <div>
+      @Html.LabelFor(model => model.Name)
+      @Html.EditorFor(model => model.Name)
+    </div>
+    <div>
+      @Html.LabelFor(model => model.YearsOfExperiance, "Years of Experiance")
+      @Html.EditorFor(model => model.YearsOfExperiance, new { type="number", min="0", required="true"})
+    </div>
+    <input class="submit-button" type="submit" value="Save" />
 }
-<p>@Html.ActionLink("Back to All Stylists", "Index")</p>
+<div class="button-group">
+  <p class="button margin-right">@Html.ActionLink("All Stylists", "Index")</p>
+  <p class="button">@Html.ActionLink($"Back to {Model.Name}", "Details", new {id = Model.StylistId})</p>
+</div>

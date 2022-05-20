@@ -4,15 +4,22 @@
 
 @model HairSalon.Models.Client
 
-<h4>Edit this Client: @Html.DisplayFor(model => model.Name)</h4>
+<h1>Edit this Client: <span class="accent-color">@Html.DisplayFor(model => model.Name)</span></h1>
 
 @using (Html.BeginForm())
 {
     @Html.HiddenFor(model => model.ClientId)
-
-    @Html.LabelFor(model => model.Name)
-    @Html.EditorFor(model => model.Name)
-    @Html.DropDownList("StylistId")
-    <input type="submit" value="Save" />
+    <div>
+      @Html.LabelFor(model => model.Name)
+      @Html.EditorFor(model => model.Name)
+    </div>
+    <div>
+      <label>Stylist </label>
+      @Html.DropDownList("StylistId")
+    </div>
+    <input class="submit-button" type="submit" value="Save" />
 }
-<p>@Html.ActionLink("See all Clients", "Index")</p>
+<div class="button-group">
+  <p class="button margin-right">@Html.ActionLink("All Clients", "Index")</p>
+  <p class="button">@Html.ActionLink($"Back to {Model.Name}", "Details", new {id = Model.ClientId})</p>
+</div>
