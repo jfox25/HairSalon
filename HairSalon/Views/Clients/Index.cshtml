@@ -2,11 +2,11 @@
   Layout = "_Layout";
 }
 @using HairSalon.Models;
-<h1>Clients at Eau Calires's Salon</h1>
+<h1><span class="accent-color">Clients</span> at Eau Calires's Salon</h1>
 @if(ViewBag.StylistCount == 0)
 {
   <p class="info">There are no Stylists yet, Please add one</p>
-  <p>@Html.ActionLink("Add a Stylist", "Create", "Stylists")</p> 
+  <p class="button">@Html.ActionLink("Add a Stylist", "Create", "Stylists")</p> 
 }
 else
 {
@@ -16,13 +16,16 @@ else
   }
   else 
   {
-  <ul>
+  <ul class="verticle-list">
     @foreach(Client client in Model)
     {
-      <li>@Html.ActionLink($"{client.Name}", "Details", new { id = client.ClientId })</li>
+      <li class="link large-font">@Html.ActionLink($"{client.Name}", "Details", new { id = client.ClientId })</li>
     }
   </ul>
 }
-<p>@Html.ActionLink("Add a Client", "Create")</p> 
+<div class="button-group">
+  <p class="button margin-right">@Html.ActionLink("Add a Client", "Create")</p> 
+  <p class="button">@Html.ActionLink("Home", "Index", "Home")</p> 
+</div>
 }
 

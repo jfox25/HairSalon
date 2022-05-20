@@ -57,5 +57,28 @@ namespace HairSalon.Controllers
         _db.SaveChanges();
         return Redirect($"/stylists/details/{appointment.StylistId}");
       }
+
+      public ActionResult Details(int id) 
+      {
+        Appointment appointment = _db.Appointments.FirstOrDefault(appointment => appointment.AppointmentId == id);
+        Stylist stylist = _db.Stylists.FirstOrDefault(stylist => stylist.StylistId == appointment.StylistId);
+        Client client = _db.Clients.FirstOrDefault(client => client.ClientId == appointment.ClientId);
+        ViewBag.StylistName = stylist.Name;
+        ViewBag.ClientName = client.Name;
+        return View(appointment);
+      }
+      [HttpPost]
+      public ActionResult Delete(int id) 
+      {
+        Appointment appointment = _db.Appointments.FirstOrDefault(appointment => appointment.AppointmentId == id);
+        if(appointment.IsBooked)
+        {
+          appointment.IsBooked = false;
+          appointment.ClientId = 0;
+          _db.Entry(appointment).State = EntityState.Modified;
+        }
+        _db.SaveChanges();
+        return RedirectToAction("Index");
+      }
     }
 }

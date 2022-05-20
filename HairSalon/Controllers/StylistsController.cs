@@ -59,6 +59,10 @@ namespace HairSalon.Controllers
         {
           _db.Appointments.Remove(appointment);
         }
+        foreach (Client client in stylist.Clients)
+        {
+          _db.Clients.Remove(client);
+        }
         _db.Stylists.Remove(stylist);
         _db.SaveChanges();
         return RedirectToAction("Index");

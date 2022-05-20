@@ -4,14 +4,23 @@
 
 @model HairSalon.Models.Appointment
 
-<h4>Book an Appointment</h4>
+<h1>Book an Appointment</h1>
 @using (Html.BeginForm())
 {
+   <div>
     <label>Client: </label>
     @Html.DropDownList("ClientId")
+   </div>
+   <div>
     <label>Time: </label>
     @Html.DropDownList("AppointmentId")
-    <p>Stylist : @ViewBag.StylistName</p>
-    <input type="submit" value="Save" />
+   </div>
+   <div>
+    <p class="bold">Stylist : @ViewBag.StylistName</p>
+   </div>
+   <input class="submit-button" type="submit" value="Save" />
 }
-<p>@Html.ActionLink("Show all Appointments", "Index")</p>
+<div class="button-group">
+  <p class="button margin-right">@Html.ActionLink("Show all Appointments", "Index")</p>
+  <p class="button">@Html.ActionLink("Home", "Index", "Home")</p> 
+</div>

@@ -73,6 +73,7 @@ namespace HairSalon.Controllers
           if(appointment.IsBooked)
           {
             appointment.IsBooked = false;
+            appointment.ClientId = 0;
             _db.Entry(appointment).State = EntityState.Modified;
           }
         }

@@ -2,12 +2,14 @@
   Layout = "_Layout";
 }
 @using HairSalon.Models;
-<h1>Appointments at Eau Calires's Salon</h1>
+<h1><span class="accent-color">Booked Appointments</span> at Eau Calires's Salon</h1>
 @if(ViewBag.StylistCount == 0 && ViewBag.ClientsCount == 0)
 {
   <p class="info">There are no Stylists or Clients yet, Please add one</p>
-  <p>@Html.ActionLink("Add a Stylist", "Create", "Stylists")</p>
-  <p>@Html.ActionLink("Add a Client", "Create", "Clients")</p>  
+  <div class="button-group">
+    <p class="button margin-right">@Html.ActionLink("Add a Stylist", "Create", "Stylists")</p>
+    <p class="button">@Html.ActionLink("Add a Client", "Create", "Clients")</p>  
+  </div>
 }
 else
 {
@@ -18,12 +20,20 @@ else
   else 
   {
   <ul>
+    <ul class="horizontal-list table-heading">
+      <li>Time</li>
+      <li>Cost</li>
+    </ul>
     @foreach(Appointment appointment in Model)
     {
-      <li>@Html.ActionLink($"{appointment.Time}", "Details", new { id = appointment.AppointmentId })</li>
+      <ul class="horizontal-list">
+        <li class="link">@Html.ActionLink($"{appointment.Time}", "Details", new { id = appointment.AppointmentId })</li>
+        <li>$60</li>
+      </ul>
     }
   </ul>
 }
-<p>@Html.ActionLink("Add an Appointment", "Create")</p> 
+<p class="info">You can only add Appointments from a Stylist</p>
+<p class="button">@Html.ActionLink("Home", "Index", "Home")</p> 
 }
 

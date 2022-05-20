@@ -6,21 +6,41 @@
 
 <h1>Client Details</h1>
 <hr />
-<h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)<h3>
-<h3>Stylist : @Html.ActionLink($"{ViewBag.StylistName}", "Details", "Stylists" , new { id = Model.StylistId })</h3>
-<h3>Appointments</h3>
+<div class="details">
+  <h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)<h3>
+  <h3 class="link">Stylist : @Html.ActionLink($"{ViewBag.StylistName}", "Details", "Stylists" , new { id = Model.StylistId })</h3>
+</div>
+<h2>Appointments</h2>
 @if(Model.Appointments.Count == 0)
 {
   <p class="info">There are no appointments for this client yet.</p>
 }
-<ul>
-  @foreach (Appointment appointment in Model.Appointments)
-  {
-    <li>@Html.ActionLink($"{appointment.Time}", "Details", "Appointments" , new { id = appointment.AppointmentId })</li>
-  }
-</ul>
-<form class="delete-form" action="/clients/delete/@Model.ClientId" method="post">
-  <button class="delete-button" type="submit" name="button">X</button>
-</form>
-<p>@Html.ActionLink("Edit Client", "Edit",  new {id = Model.ClientId})</p>
-<p>@Html.ActionLink("Back to list", "Index")</p>
+else
+{
+  <ul>
+  <ul class="horizontal-list table-heading">
+    <li>Time</li>
+    <li>Stylist</li>
+    <li>Cost</li>
+  </ul>
+    @foreach (Appointment appointment in Model.Appointments)
+    {
+      <ul class="horizontal-list">
+        <li class="link">@Html.ActionLink($"{appointment.Time}", "Details", "Appointments" , new { id = appointment.AppointmentId })</li>
+        <li>@ViewBag.StylistName</li>
+        <li>$60</li>
+      </ul>
+    }
+  </ul> 
+}
+<h3>Tools</h3>
+<div class="tools">
+  <form class="delete-form" action="/clients/delete/@Model.ClientId" method="post">
+    <button class="delete-button" type="submit" name="button">Delete</button>
+  </form>
+  <p class="edit-button">@Html.ActionLink("Edit Client", "Edit",  new {id = Model.ClientId})</p>
+</div>
+<div class="button-group">
+  <p class="button margin-right">@Html.ActionLink("Back to list", "Index")</p>
+  <p class="button">@Html.ActionLink("Home", "Index", "Home")</p>
+</div>

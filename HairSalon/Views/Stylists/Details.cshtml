@@ -6,46 +6,62 @@
 
 <h1>Stylist Details</h1>
 <hr />
-<h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)<h3>
-<h3>@Html.DisplayNameFor(model => model.StartDate): @Html.DisplayFor(model => model.StartDate)</h3>
-<h3>@Html.DisplayNameFor(model => model.YearsOfExperiance): @Html.DisplayFor(model => model.YearsOfExperiance)</h3>
-<h3>@Html.DisplayNameFor(model => model.TotalRevenue): @Html.DisplayFor(model => model.TotalRevenue)</h3>
-<h3>Clients</h3>
+<div class="details">
+  <h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)<h3>
+  <h3>@Html.DisplayNameFor(model => model.StartDate): @Html.DisplayFor(model => model.StartDate)</h3>
+  <h3>@Html.DisplayNameFor(model => model.YearsOfExperiance): @Html.DisplayFor(model => model.YearsOfExperiance)</h3>
+  <h3>@Html.DisplayNameFor(model => model.TotalRevenue): @Html.DisplayFor(model => model.TotalRevenue)</h3>
+</div>
+<h2>Clients</h2>
 @if(Model.Clients.Count == 0)
 {
   <p class="info">There are no clients for this stylist yet.</p>
 }
-<ul>
+<ul class="verticle-list">
   @foreach (Client client in Model.Clients)
   {
-    <li>@Html.ActionLink($"{client.Name}", "Details", "Clients" , new { id = client.ClientId })</li>
+    <li class="link">@Html.ActionLink($"{client.Name}", "Details", "Clients" , new { id = client.ClientId })</li>
   }
 </ul>
-<p>@Html.ActionLink("Add a client", "Create", "Clients", new { id = Model.StylistId })</p>
-<h3>Appointments</h3>
+<p class="button">@Html.ActionLink("Add a Client", "Create", "Clients", new { id = Model.StylistId })</p>
+<h2>Appointments</h2>
 @if(Model.Appointments.Count == 0)
 {
   <p class="info">There are no appointments for this stylist yet.</p>
 }
-<ul>
-  @foreach (Appointment appointment in Model.Appointments)
-  {
-    <ul>
-      <li>@appointment.Time</li>
-      @if(appointment.IsBooked)
-      {
-        <li>Booked</li>
-      }
-      else 
-      {
-        <li>Avalable</li>
-      }
+else 
+{
+  <ul>
+    <ul class="horizontal-list table-heading">
+      <li>Time</li>
+      <li>Avalablility</li>
     </ul>
-  }
-</ul>
-<p>@Html.ActionLink("Add an Appointment", "Create", "Appointments", new { id = Model.StylistId })</p>
-<form class="delete-form" action="/stylists/delete/@Model.StylistId" method="post">
-  <button class="delete-button" type="submit" name="button">X</button>
-</form>
-<p>@Html.ActionLink("Edit Item", "Edit", new { id = Model.StylistId })</p>
-<p>@Html.ActionLink("Back to list", "Index")</p>
+    @foreach (Appointment appointment in Model.Appointments)
+    {
+      <ul class="horizontal-list">
+        <li>@appointment.Time</li>
+        @if(appointment.IsBooked)
+        {
+          <li class="red">Booked</li>
+        }
+        else 
+        {
+          <li class="green">Avalable</li>
+        }
+      </ul>
+    }
+  </ul>
+}
+
+<p class="button">@Html.ActionLink("Add an Appointment", "Create", "Appointments", new { id = Model.StylistId })</p>
+<h3>Tools</h3>
+<div class="tools">
+  <form class="delete-form" action="/stylists/delete/@Model.StylistId" method="post">
+    <button class="delete-button" type="submit" name="button">Delete</button>
+  </form>
+  <p class="edit-button">@Html.ActionLink("Edit", "Edit", new { id = Model.StylistId })</p>
+</div>
+<div class="button-group">
+  <p class="button margin-right">@Html.ActionLink("View all Stylists", "Index")</p> 
+  <p class="button">@Html.ActionLink("Home", "Index", "Home")</p> 
+</div>
