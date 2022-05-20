@@ -1,0 +1,16 @@
+@{
+  Layout = "_Layout";
+}
+@using HairSalon.Models;
+<h1>Stylists at Eau Calires's Salon</h1>
+@if(Model.Count == 0)
+{
+  <p class="info">There are no Stylists yet</p>
+}
+<ul>
+  @foreach(Stylist stylist in Model)
+  {
+    <li>@Html.ActionLink($"{stylist.Name}", "Details", new { id = stylist.StylistId })</li>
+  }
+</ul>
+<p>@Html.ActionLink("Add a Stylist", "Create")</p> 
