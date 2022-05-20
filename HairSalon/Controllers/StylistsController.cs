@@ -31,12 +31,32 @@ namespace HairSalon.Controllers
         stylist.StartDate = DateTime.Now;
         _db.Stylists.Add(stylist);
         _db.SaveChanges();
-        return RedirectToAction("Index");
+        return Redirect($"/stylists/details/{stylist.StylistId}");
       }
       public ActionResult Details(int id)
       {
         Stylist stylist = _db.Stylists.FirstOrDefault(stylist => stylist.StylistId == id);
         return View(stylist);
+      }
+      public ActionResult Edit(int id)
+      {
+        Stylist stylist = _db.Stylists.FirstOrDefault(stylist => stylist.StylistId == id);
+        return View(stylist);
+      }
+      [HttpPost]
+      public ActionResult Edit(Stylist stylist)
+      {
+        _db.Entry(stylist).State = EntityState.Modified;
+        _db.SaveChanges();
+        return Redirect($"/stylists/details/{stylist.StylistId}");
+      }
+      [HttpPost]
+      public ActionResult Delete(int id)
+      {
+        Stylist stylist = _db.Stylists.FirstOrDefault(stylist => stylist.StylistId == id);
+        _db.Stylists.Remove(stylist);
+        _db.SaveChanges();
+        return RedirectToAction("Index");
       }
 
     }
