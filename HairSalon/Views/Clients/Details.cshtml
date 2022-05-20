@@ -19,8 +19,6 @@
     <li>@Html.ActionLink($"{appointment.Time}", "Details", "Appointments" , new { id = appointment.AppointmentId })</li>
   }
 </ul>
-@* <p>@Html.ActionLink("Edit Item", "Edit", new { id = Model.ItemId })</p>
-<p>@Html.ActionLink("Delete Item", "Delete", new { id = Model.ItemId })</p> *@
 <form class="delete-form" action="/clients/delete/@Model.ClientId" method="post">
   <button class="delete-button" type="submit" name="button">X</button>
 </form>
