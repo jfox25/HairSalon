@@ -22,6 +22,28 @@
   }
 </ul>
 <p>@Html.ActionLink("Add a client", "Create", "Clients", new { id = Model.StylistId })</p>
+<h3>Appointments</h3>
+@if(Model.Appointments.Count == 0)
+{
+  <p class="info">There are no appointments for this stylist yet.</p>
+}
+<ul>
+  @foreach (Appointment appointment in Model.Appointments)
+  {
+    <ul>
+      <li>@appointment.Time</li>
+      @if(appointment.IsBooked)
+      {
+        <li>Booked</li>
+      }
+      else 
+      {
+        <li>Avalable</li>
+      }
+    </ul>
+  }
+</ul>
+<p>@Html.ActionLink("Add an Appointment", "Create", "Appointments", new { id = Model.StylistId })</p>
 <form class="delete-form" action="/stylists/delete/@Model.StylistId" method="post">
   <button class="delete-button" type="submit" name="button">X</button>
 </form>

@@ -1,0 +1,17 @@
+@{
+  Layout = "_Layout";
+}
+
+@model HairSalon.Models.Appointment
+
+<h4>Book an Appointment</h4>
+@using (Html.BeginForm())
+{
+    <label>Client: </label>
+    @Html.DropDownList("ClientId")
+    <label>Time: </label>
+    @Html.DropDownList("AppointmentId")
+    <p>Stylist : @ViewBag.StylistName</p>
+    <input type="submit" value="Save" />
+}
+<p>@Html.ActionLink("Show all Appointments", "Index")</p>

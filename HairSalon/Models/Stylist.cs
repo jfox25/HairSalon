@@ -23,5 +23,18 @@ namespace HairSalon.Models
         {
           TotalRevenue += 60;
         }
+
+        public void GenerateAppoinments()
+        {
+            List<string> times = new List<string>(){"8am-9am", "9am-10am", "10am-11am", "12am-1pm", "2pm-3pm"};
+            foreach (string time in times)
+            {
+                Appointment appointment = new Appointment();
+                appointment.Time = time;
+                appointment.IsBooked = false;
+                appointment.StylistId = StylistId;
+                Appointments.Add(appointment);
+            }
+        }
     }
 }

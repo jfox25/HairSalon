@@ -29,6 +29,7 @@ namespace HairSalon.Controllers
       public ActionResult Create(Stylist stylist)
       {
         stylist.StartDate = DateTime.Now;
+        stylist.GenerateAppoinments();
         _db.Stylists.Add(stylist);
         _db.SaveChanges();
         return Redirect($"/stylists/details/{stylist.StylistId}");
@@ -54,6 +55,10 @@ namespace HairSalon.Controllers
       public ActionResult Delete(int id)
       {
         Stylist stylist = _db.Stylists.FirstOrDefault(stylist => stylist.StylistId == id);
+        foreach (Appointment appointment in stylist.Appointments)
+        {
+          _db.Appointments.Remove(appointment);
+        }
         _db.Stylists.Remove(stylist);
         _db.SaveChanges();
         return RedirectToAction("Index");
